@@ -1,15 +1,15 @@
-var {BlockChain}=require('./Blockchain.js');
-var {Block}=require('./contracts/Block.js');
+let {BlockChain}=require('./Blockchain.js');
+let {Block}=require('./contracts/Block.js');
 
-var express=require('express'), //require for creating a web server
+const express=require('express'), //require for creating a web server
 http=require('http'),
 bodyParser=require('body-parser');
 
-var app=express();
-var blockChain= new BlockChain();
+let app=express();
+let blockChain= new BlockChain();
 
 //configuring application
-app.set('port',process.env.PORT||8081);
+app.set('port',process.env.PORT||8082);
 app.set('host',process.env.ADDRESS||"127.0.0.1");
 app.use(bodyParser.json());
 
@@ -22,11 +22,41 @@ res.send("Transaction added successfully");
 });
 
 app.get('/mine',function(req,res){
-  var response={
+  let response={
       message: "Block added successfully",
       block:blockChain.addBlock()
   };
 res.send(JSON.stringify(response));
+});
+
+//get the chain of application
+app.get('/chain',function(req,res){
+    let response={
+        "length":blockChain.chain.length,
+        "chain":blockChain.chain
+    };
+    res.send(JSON.stringify(response));
+});
+
+//adds new node to server
+app.post('/node/add',function(req,res){
+    blockChain.addNodes(req.body.nodes);
+    let response={
+        "success":true,
+        "nodes":blockChain.nodes
+    };
+    res.send(JSON.stringify(response));
+});
+
+//consensus to resolve conflicts of chain
+app.get('/conflicts/resolve',function(req,res){
+    blockChain.resolveconflict(function(isChainModified){
+        let response={
+        "status": isChainModified?"Chain Modified":"Chain Authtorative",
+        "chain":blockChain.chain
+        };
+        res.send(JSON.stringify(response));
+    });
 });
 
 //run the webserver

@@ -1,5 +1,5 @@
-var {BlockChain}=require('./Blockchain.js');
-var {Block}=require('./contracts/Block.js');
+let {BlockChain}=require('./Blockchain.js');
+let {Block}=require('./contracts/Block.js');
 
 let blockChain= new BlockChain();
 

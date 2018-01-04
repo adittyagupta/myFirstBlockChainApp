@@ -13,13 +13,13 @@ module.exports.Block=class{
         this.nonce=0;
     }
 
-//calculates the hash for the block
+    //calculates the hash for the block
     calculateHash(){
         return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data) + this.nonce).toString();
     }
 
-//this method is used to mine the noince AKA proof of work done by miners while validating the transactions.
-//We will generate has till our desired has with ending "0" is found
+    //this method is used to mine the nonce AKA proof of work done by miners while validating the transactions.
+    //We will generate has till our desired has with ending "0" is found
       mineBlock(difficulty) {
     while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
         this.nonce++;
