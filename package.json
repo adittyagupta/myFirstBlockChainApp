@@ -2,9 +2,12 @@
   "name": "blockchain-demo",
   "version": "1.0.0",
   "description": "this is demo for creationg block chain application",
-  "main": "src/webApp.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build":"npm install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/main.js",
+    "startWeb": "node ./src/webApp.js"
   },
   "author": "Aditya Gupta",
   "license": "ISC",
