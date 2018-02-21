@@ -26,7 +26,7 @@ app.get('/mine',function(req,res){
       message: "Block added successfully",
       block:blockChain.addBlock()
   };
-res.send(JSON.stringify(response));
+res.send(response);
 });
 
 //get the chain of application
@@ -35,7 +35,7 @@ app.get('/chain',function(req,res){
         "length":blockChain.chain.length,
         "chain":blockChain.chain
     };
-    res.send(JSON.stringify(response));
+    res.send(response);
 });
 
 //adds new node to server
@@ -45,7 +45,7 @@ app.post('/node/add',function(req,res){
         "success":true,
         "nodes":blockChain.nodes
     };
-    res.send(JSON.stringify(response));
+    res.send(response);
 });
 
 //consensus to resolve conflicts of chain
@@ -55,7 +55,7 @@ app.get('/conflicts/resolve',function(req,res){
         "status": isChainModified?"Chain Modified":"Chain Authtorative",
         "chain":blockChain.chain
         };
-        res.send(JSON.stringify(response));
+        res.send(response);
     });
 });
 

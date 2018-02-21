@@ -46,7 +46,9 @@ module.exports.BlockChain=class{
             chainToVerify=this.chain;
         }
         for (let chainIndex = 1; chainIndex < chainToVerify.length; chainIndex++){
-            let currentBlock = chainToVerify[chainIndex];
+            let currentBlock = new Block(chainToVerify[chainIndex].index,chainToVerify[chainIndex].timeStamp,chainToVerify[chainIndex].data,chainToVerify[chainIndex].previousHash,false);
+            currentBlock.hash=chainToVerify[chainIndex].hash;
+            currentBlock.nonce=chainToVerify[chainIndex].nonce;
             let previousBlock = chainToVerify[chainIndex - 1];
 
             //either hash is not matching or previous hash is not matching
@@ -86,7 +88,7 @@ module.exports.BlockChain=class{
             let newChain=currentChain;
             let newNodeIndex=nodeIndex+1;
             let chainModified=isChainModified;
-            if(data.length>currentChainLength && isChainValid(data.chain)){
+            if(data.length>currentChainLength && this.isChainValid(data.chain)){
                 newChain=data.chain;    
                 chainModified=true;            
             }
